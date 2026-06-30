@@ -1,0 +1,43 @@
+-- Group By + Join
+
+
+-- 1.a) Crie um agrupamento mostrando o total de vendas por ano
+select top(10) * from factsales
+select top(10) * from DimDate
+
+select
+	CalendarYear as 'Ano',
+	sum(SalesQuantity) as 'Total Vendido'
+from
+	FactSales
+inner join DimDate
+	on FactSales.DateKey = DimDate.Datekey
+group by CalendarYear
+
+
+
+-- 1.b) Considere apenas o mês de Janeiro.
+
+select
+	CalendarYear as 'Ano',
+	sum(SalesQuantity) as 'Total Vendido'
+from
+	FactSales
+inner join DimDate
+	on FactSales.DateKey = DimDate.Datekey
+where CalendarMonthLabel = 'January'
+group by CalendarYear
+
+
+-- 1.c) Na tabela resultante, mostre apenas os anos com um total de vendas maior ou igaul a 1.200.000
+
+select
+	CalendarYear as 'Ano',
+	sum(SalesQuantity) as 'Total Vendido'
+from
+	FactSales
+inner join DimDate
+	on FactSales.DateKey = DimDate.Datekey
+where CalendarMonthLabel = 'January'
+group by CalendarYear
+having SUM(SalesQuantity) >= 1200000
